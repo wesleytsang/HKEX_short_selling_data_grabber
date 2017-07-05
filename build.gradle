@@ -1,0 +1,36 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+javadoc.options.encoding = 'UTF-8'
+compileJava.options.encoding = 'UTF-8'
+
+mainClassName = 'me.wesleytsang.Main'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.jsoup/jsoup
+    compile group: 'org.jsoup', name: 'jsoup', version: '1.10.3'
+
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+
+    // https://mvnrepository.com/artifact/junit/junit
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+jar {
+	baseName = 'HKEX_Data_Grabber_ChinaStock'
+    version = '0.1.0'
+	manifest {
+		attributes 'Main-Class': 'me.wesleytsang.Main'
+	}
+}
+
+run {
+    if (project.hasProperty("appArgs")) {
+        args Eval.me(appArgs)
+    }
+}
